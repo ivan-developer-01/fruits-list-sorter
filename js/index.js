@@ -158,7 +158,6 @@ shuffleButton.addEventListener('click', () => {
 const filterFruits = () => {
 	let result = [];
 	result = fruits.filter((item) => {
-		// TODO: допишите функцию
 		let minWeightValue = +minWeightInput.value;
 		let maxWeightValue = +maxWeightInput.value;
 		return (+item.weight >= minWeightValue) && (+item.weight <= maxWeightValue);
