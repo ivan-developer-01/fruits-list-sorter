@@ -11,6 +11,9 @@ const colorInput = document.querySelector('.color__input'); // поле с на�
 const weightInput = document.querySelector('.weight__input'); // поле с весом
 const addActionButton = document.querySelector('.add__action__btn'); // кнопка добавления
 
+const minWeightInput = document.querySelector(".minweight__input");
+const maxWeightInput = document.querySelector(".maxweight__input");
+
 const divStartingStrings = {
 	index: "index",
 	kind: "kind",
@@ -153,14 +156,22 @@ shuffleButton.addEventListener('click', () => {
 
 // фильтрация массива
 const filterFruits = () => {
-	fruits.filter((item) => {
+	let result = [];
+	result = fruits.filter((item) => {
 		// TODO: допишите функцию
+		let minWeightValue = +minWeightInput.value;
+		let maxWeightValue = +maxWeightInput.value;
+		return (+item.weight >= minWeightValue) && (+item.weight <= maxWeightValue);
 	});
+
+	return result;
 };
 
 filterButton.addEventListener('click', () => {
-	filterFruits();
+	let tmpFruits = JSON.parse(JSON.stringify(fruits));
+	fruits = filterFruits();
 	display();
+	fruits = tmpFruits;
 });
 
 /*** СОРТИРОВКА ***/
