@@ -175,7 +175,7 @@ filterButton.addEventListener('click', () => {
 
 /*** СОРТИРОВКА ***/
 
-let sortKind = 'quickSort'; // инициализация состояния вида сортировки
+let sortKind = 'bubbleSort'; // инициализация состояния вида сортировки
 let sortTime = '-'; // инициализация состояния времени сортировки
 
 const comparationColor = (a, b) => {
