@@ -11,6 +11,13 @@ const colorInput = document.querySelector('.color__input'); // поле с на�
 const weightInput = document.querySelector('.weight__input'); // поле с весом
 const addActionButton = document.querySelector('.add__action__btn'); // кнопка добавления
 
+const divStartingStrings = {
+	index: "index",
+	kind: "kind",
+	color: "color",
+	weight: "weight (кг)"
+};
+
 // список фруктов в JSON формате
 let fruitsJSON = `[
   {"kind": "Мангустин", "color": "фиолетовый", "weight": 13},
@@ -30,9 +37,76 @@ const display = () => {
 	// TODO: очищаем fruitsList от вложенных элементов,
 	// чтобы заполнить актуальными данными из fruits
 
+	fruitsList.innerHTML = "";
+
+	/**
+	<li class="fruit__item fruit_violet">
+            <div class="fruit__info">
+              <div>index: 0</div>
+              <div>kind: Мангустин</div>
+              <div>color: фиолетовый</div>
+              <div>weight (кг): 13</div>
+            </div>
+          </li>
+		   */
+
 	for (let i = 0; i < fruits.length; i++) {
 		// TODO: формируем новый элемент <li> при помощи document.createElement,
 		// и добавляем в конец списка fruitsList при помощи document.appendChild
+		let li = document.createElement("li");
+		let liDiv = document.createElement("div");
+
+		let divIndex = document.createElement("div"),
+			divKind = document.createElement("div"),
+			divColor = document.createElement("div"),
+			divWeight = document.createElement("div");
+
+		divIndex.innerHTML = divStartingStrings.index + ": " + i;
+		divKind.innerHTML = divStartingStrings.kind + ": " + fruits[i].kind;
+		divColor.innerHTML = divStartingStrings.color + ": " + fruits[i].color;
+		divWeight.innerHTML = divStartingStrings.weight + ": " + fruits[i].weight;
+
+		liDiv.appendChild(divIndex);
+		liDiv.appendChild(divKind);
+		liDiv.appendChild(divColor);
+		liDiv.appendChild(divWeight);
+
+		liDiv.classList.add("fruit__info");
+
+		li.appendChild(liDiv);
+
+		let liColorClass = "fruit_";
+
+		switch (fruits[i].color?.toLowerCase()) {
+			case "фиолетовый":
+				liColorClass += "violet";
+				break;
+			case "зеленый":
+			case "зелёный":
+				liColorClass += "green";
+				break;
+			case "розово-красный":
+			case "розово красный":
+				liColorClass += "carmazin";
+				break;
+			case "желтый":
+			case "жёлтый":
+				liColorClass += "yellow";
+				break;
+			case "светло-коричневый":
+			case "светло коричневый":
+				liColorClass += "lightbrown";
+				break;
+
+			default:
+				// по умолчанию будет чёрный цвет
+				liColorClass += "black";
+				break;
+		}
+
+		li.classList.add("fruit__item", liColorClass);
+
+		fruitsList.appendChild(li);
 	}
 };
 
