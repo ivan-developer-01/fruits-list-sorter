@@ -36,22 +36,11 @@ let fruits = JSON.parse(fruitsJSON);
 /*** ОТОБРАЖЕНИЕ ***/
 
 // отрисовка карточек
-const display = () => {
+const display = (fruits) => {
 	// очищаем fruitsList от вложенных элементов,
 	// чтобы заполнить актуальными данными из fruits
 
 	fruitsList.innerHTML = "";
-
-	/**
-	<li class="fruit__item fruit_violet">
-            <div class="fruit__info">
-              <div>index: 0</div>
-              <div>kind: Мангустин</div>
-              <div>color: фиолетовый</div>
-              <div>weight (кг): 13</div>
-            </div>
-          </li>
-		   */
 
 	for (let i = 0; i < fruits.length; i++) {
 		// формируем новый элемент <li> при помощи document.createElement,
@@ -114,7 +103,7 @@ const display = () => {
 };
 
 // первая отрисовка карточек
-display();
+display(fruits);
 
 /*** ПЕРЕМЕШИВАНИЕ ***/
 
@@ -149,7 +138,7 @@ const shuffleFruits = () => {
 
 shuffleButton.addEventListener('click', () => {
 	shuffleFruits();
-	display();
+	display(fruits);
 });
 
 /*** ФИЛЬТРАЦИЯ ***/
@@ -169,7 +158,7 @@ const filterFruits = () => {
 filterButton.addEventListener('click', () => {
 	let tmpFruits = JSON.parse(JSON.stringify(fruits));
 	fruits = filterFruits();
-	display();
+	display(fruits);
 	fruits = tmpFruits;
 });
 
@@ -249,7 +238,7 @@ sortActionButton.addEventListener('click', () => {
 	sortTimeLabel.textContent = "sorting...";
 	const sort = sortAPI[sortKind];
 	sortAPI.startSort(sort, fruits, comparationColor);
-	display();
+	display(fruits);
 	sortTimeLabel.textContent = sortTime;
 });
 
@@ -281,5 +270,5 @@ addActionButton.addEventListener('click', () => {
 
 	fruits.push(fruit);
 
-	display();
+	display(fruits);
 });
