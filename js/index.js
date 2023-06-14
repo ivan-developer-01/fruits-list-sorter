@@ -34,7 +34,7 @@ let fruits = JSON.parse(fruitsJSON);
 
 // отрисовка карточек
 const display = () => {
-	// TODO: очищаем fruitsList от вложенных элементов,
+	// очищаем fruitsList от вложенных элементов,
 	// чтобы заполнить актуальными данными из fruits
 
 	fruitsList.innerHTML = "";
@@ -51,7 +51,7 @@ const display = () => {
 		   */
 
 	for (let i = 0; i < fruits.length; i++) {
-		// TODO: формируем новый элемент <li> при помощи document.createElement,
+		// формируем новый элемент <li> при помощи document.createElement,
 		// и добавляем в конец списка fruitsList при помощи document.appendChild
 		let li = document.createElement("li");
 		let liDiv = document.createElement("div");
@@ -122,18 +122,25 @@ const getRandomInt = (min, max) => {
 
 // перемешивание массива
 const shuffleFruits = () => {
+	let originalFruits = JSON.parse(JSON.stringify(fruits));
 	let result = [];
 
-	// ATTENTION: сейчас при клике вы запустите бесконечный цикл и браузер зависнет
 	while (fruits.length > 0) {
-		// TODO: допишите функцию перемешивания массива
-		//
-		// Подсказка: находим случайный элемент из fruits, используя getRandomInt
+		// находим случайный элемент из fruits, используя getRandomInt
 		// вырезаем его из fruits и вставляем в result.
 		// ex.: [1, 2, 3], [] => [1, 3], [2] => [3], [2, 1] => [], [2, 1, 3]
 		// (массив fruits будет уменьшатся, а result заполняться)
+
+		let indexToRemove = getRandomInt(0, fruits.length - 1);
+    	let deleted = fruits[indexToRemove];
+    	result.push(deleted);
+    	fruits.splice(indexToRemove, 1);
 	}
 
+	if (JSON.stringify(originalFruits) === JSON.stringify(result)) {
+		alert("Неудача! Не удалось перемешать массив, так как он не перемешался вообще. Попробуйте ещё раз.");
+	}
+	
 	fruits = result;
 };
 
