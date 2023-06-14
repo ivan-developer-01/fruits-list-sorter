@@ -256,7 +256,30 @@ sortActionButton.addEventListener('click', () => {
 /*** ДОБАВИТЬ ФРУКТ ***/
 
 addActionButton.addEventListener('click', () => {
-	// TODO: создание и добавление нового фрукта в массив fruits
+	// создание и добавление нового фрукта в массив fruits
 	// необходимые значения берем из kindInput, colorInput, weightInput
+	let kind = kindInput.value,
+		color = colorInput.value,
+		weight = weightInput.value;
+
+	if (!kind) {
+		alert("Пожалуйста, заполните поле kind.");
+		return;
+	}
+
+	if (!color) {
+		alert("Пожалуйста, заполните поле color.");
+		return;
+	}
+
+	if (!weight) {
+		alert("Пожалуйста, заполните поле weight.");
+		return;
+	}
+
+	let fruit = { kind, color, weight };
+
+	fruits.push(fruit);
+
 	display();
 });
