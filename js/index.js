@@ -176,20 +176,56 @@ filterButton.addEventListener('click', () => {
 
 /*** СОРТИРОВКА ***/
 
-let sortKind = 'bubbleSort'; // инициализация состояния вида сортировки
+let sortKind = 'quickSort'; // инициализация состояния вида сортировки
 let sortTime = '-'; // инициализация состояния времени сортировки
 
 const comparationColor = (a, b) => {
-	// TODO: допишите функцию сравнения двух элементов по цвету
+	return a.color > b.color;
 };
 
 const sortAPI = {
 	bubbleSort(arr, comparation) {
-		// TODO: допишите функцию сортировки пузырьком
+		const n = arr.length;
+		// внешняя итерация по элементам
+		for (let i = 0; i < n - 1; i++) {
+			// внутренняя итерация для перестановки элемента в конец массива
+			for (let j = 0; j < n - 1 - i; j++) {
+				// сравниваем элементы
+				if (comparation(arr[j], arr[j + 1])) {
+					// делаем обмен элементов
+					let temp = arr[j + 1];
+					arr[j + 1] = arr[j];
+					arr[j] = temp;
+				}
+			}
+		}
 	},
 
 	quickSort(arr, comparation) {
-		// TODO: допишите функцию быстрой сортировки
+		function quickSort(arr) {
+			if (arr.length <= 1) {
+				return arr;
+			}
+
+			const pivot = arr[arr.length - 1];
+			const leftList = [];
+			const rightList = [];
+
+			for (let i = 0; i < arr.length - 1; i++) {
+				if (comparation(pivot, arr[i])) {
+					leftList.push(arr[i]);
+				} else {
+					rightList.push(arr[i]);
+				}
+			}
+
+			return [...quickSort(leftList), pivot, ...quickSort(rightList)];
+		}
+
+		arr = quickSort(arr);
+		fruits = arr;
+
+		return arr;
 	},
 
 	// выполняет сортировку и производит замер времени
@@ -206,15 +242,16 @@ sortKindLabel.textContent = sortKind;
 sortTimeLabel.textContent = sortTime;
 
 sortChangeButton.addEventListener('click', () => {
-	// TODO: переключать значение sortKind между 'bubbleSort' / 'quickSort'
+	sortKind = (sortKind === "bubbleSort") ? "quickSort" : "bubbleSort";
+	sortKindLabel.textContent = sortKind;
 });
 
 sortActionButton.addEventListener('click', () => {
-	// TODO: вывести в sortTimeLabel значение 'sorting...'
+	sortTimeLabel.textContent = "sorting...";
 	const sort = sortAPI[sortKind];
 	sortAPI.startSort(sort, fruits, comparationColor);
 	display();
-	// TODO: вывести в sortTimeLabel значение sortTime
+	sortTimeLabel.textContent = sortTime;
 });
 
 /*** ДОБАВИТЬ ФРУКТ ***/
